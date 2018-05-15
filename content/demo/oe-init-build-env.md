@@ -2,13 +2,18 @@
 title = "poky/oe-init-build-env"
 +++
 
-Let's have a clean environemnt, and then clone Poky.
+<script type="text/javascript"
+    src="https://asciinema.org/a/TUdQhxDJ5B5QiUFqlLFK96bS3.js"
+    id="asciicast-TUdQhxDJ5B5QiUFqlLFK96bS3" data-rows="70" async
+></script>
+
+Let's have a clean environment, and then clone Poky.
 
 ```
 └─> bash -norc
 bash-4.3$ git clone git://git.yoctoproject.org/poky /tmp/poky
 Cloning into 'poky'...
-remote: Counting objects: 400896, done.
+remote: Counting objects: 400896, done/.
 remote: Compressing objects: 100% (95425/95425), done.
 remote: Total 400896 (delta 298916), reused 400592 (delta 298614)
 Receiving objects: 100% (400896/400896), 145.04 MiB | 2.11 MiB/s, done.
