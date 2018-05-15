@@ -76,3 +76,7 @@ weight = 30
 # name = "<i class='fa fa-bullhorn'></i> <label>Credits</label>"
 # url = "/credits"
 # weight = 40
+
+staticDir = [
+    "static"
+]
