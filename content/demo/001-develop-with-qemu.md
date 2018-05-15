@@ -2,17 +2,15 @@
 title = "meta-genet/001-develop-with-qemu"
 +++
 
+### Fetch and Configure
+
 Let's start by obtaining all 'meta' layers that we want to use recipes from.
 Choose a directory that you have plenty of space.
-
-### Fetch
 
 ```
 git clone --recurse-submodules \
     git@github.com:NGenetzky/meta-genet.git
 ```
-
-### Configure
 
 We will set "TEMPLATECONF" to specify template for bblayers.conf and
 local.conf, and then we will source the init-build-env script to initalize a
@@ -22,7 +20,7 @@ build directory.
 source meta-genet/templates/set-templateconf meta-genet/templates/001-develop-with-qemu/
 ```
 ```
-source meta-genet/init-build-env /data/workspace/build
+source meta-genet/init-build-env /data/yocto/2.4/b/build
 ```
 
 Next we want to configure the build. The eaiest way to do this is editing
@@ -46,23 +44,43 @@ file://.* file:///data/yocto/sstate-cache/PATH \
 SOURCE_MIRROR_URL ?= "file:///data/yocto/downloads/"
 ```
 
+<script type="text/javascript"
+    src="https://asciinema.org/a/F4mNkcwxBZd0Dqq5PR4eEWVsr.js"
+    id="asciicast-F4mNkcwxBZd0Dqq5PR4eEWVsr" data-rows="59" async
+></script>
+
 ### Compile
 
-Now we will perform the actual build, and then use qemu to run a virtual
-machine with the image we just built. 'kvm' is for performance, and 'nographic'
-and 'serial' causes qemu to stay in the terminal rather than launching the GUI.
+Now we will perform the actual build. Note that you must initalize the build
+environment before building or using scripts provided by poky.
 
 ```
 bitbake core-image-minimal
 ```
 
+<script type="text/javascript"
+    src="https://asciinema.org/a/S4k6ag5KlmVDKiqbxVu1fv2d3.js"
+    id="asciicast-S4k6ag5KlmVDKiqbxVu1fv2d3" data-rows="41" async
+></script>
+
+
 ### QEMU with ext image
+
+Then we will use qemu to run a virtual machine with the image we just built.
+'kvm' is for performance, and 'nographic' and 'serial' causes qemu to stay in
+the terminal rather than launching the GUI.
 
 ```
 runqemu \
-    build/tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 \
+    tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 \
     kvm nographic serial
 ```
+
+<script type="text/javascript"
+    src="https://asciinema.org/a/o0T6oaAoNV00GcoVhp54hbabs.js"
+    id="asciicast-o0T6oaAoNV00GcoVhp54hbabs" data-rows="59" async
+></script>
+
 
 ### QEMU with NFS
 
@@ -84,7 +102,7 @@ runqemu-extract-sdk \
     build/tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.tar.bz2 \
     nfs/core-image-minimal
 runqemu-export-rootfs start \
-    /data/yocto/2.4/b/nfs/core-image-minimal
+    nfs/core-image-minimal
 ```
 
 Finally, we run qemu with nfsroot instead of the ext4 image.
